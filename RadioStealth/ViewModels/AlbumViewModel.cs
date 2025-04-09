@@ -4,7 +4,7 @@ using ReactiveUI;
 
 namespace RadioStealth.ViewModels
 {
-	public class AlbumViewModel : ReactiveObject
+	public class AlbumViewModel : ViewModelBase
 	{
 	}
 }

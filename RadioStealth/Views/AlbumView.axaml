@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Class="RadioStealth.Views.AlbumView">
+	<StackPanel Spacing="5" Width="200">
+		<Border CornerRadius="10" ClipToBounds="True" >
+			<Panel Background="#5390d9" Width="200">
+				<Image Stretch="Uniform" Width="200" />
+				<Panel Height="200">
+					<PathIcon Width="75" Height="75" Data="{StaticResource MusicNoteIconData}"/>
+				</Panel>
+			</Panel>
+		</Border>
+	</StackPanel>
+</UserControl>
