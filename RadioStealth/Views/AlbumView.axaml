@@ -8,8 +8,8 @@
 	<StackPanel Spacing="5" Width="200">
 		<Border CornerRadius="10" ClipToBounds="True" >
 			<Panel Background="#5390d9" Width="200">
-				<Image Stretch="Uniform" Width="200" />
-				<Panel Height="200">
+				<Image Source="{Binding Cover}" Stretch="Uniform" Width="200" />
+				<Panel Height="200" IsVisible="{Binding Cover, Converter={x:Static ObjectConverters.IsNull}}" >
 					<PathIcon Width="75" Height="75" Data="{StaticResource MusicNoteIconData}"/>
 				</Panel>
 			</Panel>

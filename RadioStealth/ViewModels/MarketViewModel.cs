@@ -6,6 +6,7 @@ using ReactiveUI;
 using System.Threading;
 using System.Threading.Tasks;
 using RadioStealth.Models;
+using System.Linq;
 
 namespace RadioStealth.ViewModels
 {
@@ -14,6 +15,7 @@ namespace RadioStealth.ViewModels
 		private string? _search;
 		private bool _isBusy;
 		private AlbumViewModel? _selectedAlbum;
+		private CancellationTokenSource? _cancellationTokenSource;
 
         public string? Search { 
 			get => _search;
@@ -55,14 +57,37 @@ namespace RadioStealth.ViewModels
 			IsBusy = true;
 			AlbumList.Clear();
 
+			_cancellationTokenSource?.Cancel();
+			_cancellationTokenSource = new();
+			var _cancellationToken = _cancellationTokenSource.Token;
+
 			if (!string.IsNullOrEmpty(search))
 			{
 				var albums = await Album.SearchAlbums(search);
 
 				foreach (var album in albums)
 					AlbumList.Add(new AlbumViewModel(album));
+
+                if (!_cancellationToken.IsCancellationRequested)
+                {
+                    LoadCovers(_cancellationToken);
+                }
 			}
+
+
 			IsBusy = false;
+		}
+
+		private async void LoadCovers(CancellationToken cancellationToken)
+		{
+			foreach (var album in AlbumList.ToList())
+			{
+				await album.LoadCover();
+                if (cancellationToken.IsCancellationRequested)
+                {
+					return;
+                }
+			}
 		}
     }
 }
