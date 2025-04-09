@@ -21,7 +21,7 @@
 				/>
 			</ExperimentalAcrylicBorder.Material>
 		</ExperimentalAcrylicBorder>
-		<Panel Margin="0 35 0 0">
+		<Panel Margin="5 35 5 5">
 			<p:MusicMarketView />
 		</Panel>
 	</Panel>
