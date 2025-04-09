@@ -3,6 +3,7 @@
         xmlns:vm="using:RadioStealth.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:views="clr-namespace:RadioStealth.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="RadioStealth.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -34,6 +35,20 @@
 					Command="{Binding OpenMarket}">
 				<PathIcon Data="{StaticResource MarketIconData}" Foreground="{DynamicResource ThemeForegroundBrush}"/>
 			</Button>
+
+			<ItemsControl Margin="20 40 20 0" ItemsSource="{Binding Albums}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<views:AlbumView Margin="0 0 20 20"/>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
 		</Panel>
 	</Panel>
 

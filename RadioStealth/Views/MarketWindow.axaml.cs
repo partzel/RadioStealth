@@ -10,9 +10,10 @@ using System;
 
 namespace RadioStealth;
 
-public partial class MarketWindow :Window{
+public partial class MarketWindow : ReactiveWindow<MarketViewModel> {
     public MarketWindow()
     {
         InitializeComponent();
+        this.WhenActivated(action => action(ViewModel!.AddAlbumCommand.Subscribe(Close)));
     }
 }

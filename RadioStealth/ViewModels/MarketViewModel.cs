@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using RadioStealth.Models;
 using System.Linq;
+using System.Reactive;
 
 namespace RadioStealth.ViewModels
 {
@@ -15,7 +16,7 @@ namespace RadioStealth.ViewModels
 		private string? _search;
 		private bool _isBusy;
 		private AlbumViewModel? _selectedAlbum;
-		private CancellationTokenSource? _cancellationTokenSource;
+		 private CancellationTokenSource? _cancellationTokenSource;
 
         public string? Search { 
 			get => _search;
@@ -34,7 +35,9 @@ namespace RadioStealth.ViewModels
 			}
 		}
 
-		public ObservableCollection<AlbumViewModel> AlbumList { get; } = new();
+        public ReactiveCommand<Unit, AlbumViewModel?> AddAlbumCommand { get; }
+
+        public ObservableCollection<AlbumViewModel> AlbumList { get; } = new();
 
         public AlbumViewModel? SelectedAlbum {
 			get => _selectedAlbum;
@@ -46,6 +49,8 @@ namespace RadioStealth.ViewModels
 
         public MarketViewModel()
         {
+			AddAlbumCommand = ReactiveCommand.Create(() => { return SelectedAlbum; });
+
 			this.WhenAnyValue(m => m.Search)
 				.Throttle(TimeSpan.FromMilliseconds(400))
 				.ObserveOn(RxApp.MainThreadScheduler)
@@ -77,6 +82,7 @@ namespace RadioStealth.ViewModels
 
 			IsBusy = false;
 		}
+
 
 		private async void LoadCovers(CancellationToken cancellationToken)
 		{
