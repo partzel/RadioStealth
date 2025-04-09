@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reactive.Linq;
 using ReactiveUI;
+using System.Threading;
+using System.Threading.Tasks;
+using RadioStealth.Models;
 
 namespace RadioStealth.ViewModels
 {
@@ -36,14 +40,29 @@ namespace RadioStealth.ViewModels
 			{
 				this.RaiseAndSetIfChanged(ref _selectedAlbum, value);
 			}
-		} 
+		}
 
         public MarketViewModel()
         {
-			AlbumList.Add(new AlbumViewModel());
-			AlbumList.Add(new AlbumViewModel());
-			AlbumList.Add(new AlbumViewModel());
-			AlbumList.Add(new AlbumViewModel());
+			this.WhenAnyValue(m => m.Search)
+				.Throttle(TimeSpan.FromMilliseconds(400))
+				.ObserveOn(RxApp.MainThreadScheduler)
+				.Subscribe(DoSearch!);
         }
+
+		public async void DoSearch(string search)
+		{
+			IsBusy = true;
+			AlbumList.Clear();
+
+			if (!string.IsNullOrEmpty(search))
+			{
+				var albums = await Album.SearchAlbums(search);
+
+				foreach (var album in albums)
+					AlbumList.Add(new AlbumViewModel(album));
+			}
+			IsBusy = false;
+		}
     }
 }

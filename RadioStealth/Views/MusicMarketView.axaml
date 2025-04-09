@@ -12,6 +12,15 @@
 			<ProgressBar IsVisible="{Binding IsBusy}" IsIndeterminate="True" />
 		</StackPanel>
 		<Button Margin="5" HorizontalAlignment="Center" DockPanel.Dock="Bottom">Add Album</Button>
-		<ListBox ItemsSource="{Binding AlbumList}" SelectedItem="{Binding SelectedAlbum}"/>
+		<ListBox ItemsSource="{Binding AlbumList}" 
+				 SelectedItem="{Binding SelectedAlbum}"
+				 Background="Transparent"
+				 Margin="0 20">
+			<ListBox.ItemsPanel>
+				<ItemsPanelTemplate>
+					<WrapPanel />
+				</ItemsPanelTemplate>
+			</ListBox.ItemsPanel>
+		</ListBox>
 	</DockPanel>
 </UserControl>
