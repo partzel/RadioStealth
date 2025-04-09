@@ -1,9 +1,25 @@
-﻿namespace RadioStealth.ViewModels
+﻿using Avalonia.ReactiveUI;
+using ReactiveUI;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
+namespace RadioStealth.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-#pragma warning disable CA1822 // Mark members as static
-        public string Greeting => "Welcome to Avalonia!";
-#pragma warning restore CA1822 // Mark members as static
+        public ICommand OpenMarket { get; }
+        public Interaction<MarketViewModel, AlbumViewModel?> ShowDialog { get; }
+
+        public MainWindowViewModel()
+        {
+            ShowDialog = new();
+            OpenMarket = ReactiveCommand.CreateFromTask(async () =>
+            {
+                var market= new MarketViewModel();
+
+                var result = await ShowDialog.Handle(market);
+            });
+        }
     }
 }

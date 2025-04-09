@@ -22,4 +22,10 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.0" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.1.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\MarketWindow.axaml.cs">
+      <DependentUpon>MarketWindow.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

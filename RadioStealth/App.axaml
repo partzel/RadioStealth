@@ -11,5 +11,12 @@
   
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://RadioStealth/Icons.axaml" />
     </Application.Styles>
+
+	<Application.Styles>
+		<Style Selector="Button">
+			<Setter Property="Background" Value="Transparent" />
+		</Style>
+	</Application.Styles>
 </Application>

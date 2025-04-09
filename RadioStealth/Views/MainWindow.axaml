@@ -25,9 +25,16 @@
 					BackgroundSource="Digger"
 					TintColor="Black"
 					TintOpacity="1"
-					MaterialOpacity="0.4"/>
+					MaterialOpacity="0.65"/>
 			</ExperimentalAcrylicBorder.Material>
 		</ExperimentalAcrylicBorder>
+
+		<Panel Margin="10 30">
+			<Button HorizontalAlignment="Right" VerticalAlignment="Top"
+					Command="{Binding OpenMarket}">
+				<PathIcon Data="{StaticResource MarketIconData}" Foreground="{DynamicResource ThemeForegroundBrush}"/>
+			</Button>
+		</Panel>
 	</Panel>
 
 </Window>
